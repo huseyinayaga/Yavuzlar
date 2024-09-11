@@ -1,0 +1,114 @@
+
+body {
+    background-color: #1e1d1d;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
+}
+
+
+.left {
+    border-radius: 20px;
+    width: 20%;
+    background-color: #1e1d1d;
+    padding: 20px;
+}
+
+.left a {
+    color: aliceblue;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+    padding: 15px 0;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.left a:hover {
+    color: #07bc0c;
+    background-color: #292929;
+}
+
+
+.center {
+    border-radius: 20px;
+    width: 60%;
+    background-color: #1e1d1d;
+    display: flex;
+    color: white;
+    font-size: 24px;
+    background: radial-gradient(circle, rgba(69, 208, 74, 0.07) 40%, rgba(7, 188, 12, 0.09) 70%, rgba(7, 188, 12, 0.1) 92%);
+
+
+}
+.center img{
+    width: 400px;
+    height: 300px;
+}
+
+.right {
+    font-size: 24px;
+    border-radius: 20px;
+    width: 20%;
+    background-color: #1e1d1d;
+    display: flex;
+    padding: 20px;
+    color: white;
+    flex-direction: column;
+}
+.username-lbl{
+    margin: 10%;
+    width: 100%;
+    
+}
+.btn-logout{
+    margin: 10%;
+    width: 90%;
+    height: 40px;
+}
+.btn-logout button{
+    border: none;
+    background-color: #07bc0c;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 3px 3px 8px rgba(255, 255, 255, 0.5);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.btn-logout button:hover{
+    transform: scale(1.1);
+}
+.score-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.score-table thead {
+    color: #fff;
+}
+
+.score-table th, .score-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.score-table tr:hover {
+    background-color: #2f2c2c;
+}
+
+.score-table th {
+    font-weight: bold;
+}
+

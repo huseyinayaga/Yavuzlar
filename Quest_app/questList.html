@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soru Listesi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="content">
+    <div class="main">
+        <div class="search-input">
+            <input type="search" name="search-quest" id="search" placeholder="Soru Ara">
+        </div>
+        <div id="questions-list"></div>
+        <script>   
+            var storedQuestions = JSON.parse(localStorage.getItem('questions')) || [];
+
+            /*for(let i=0; i<storedQuestions.length; i++){
+                document.write("<div class='questions'> <div class='quest'  onclick='getQuestion("+(i)+")'><span>"+(i+1)+". </span>Soru</div> <button class='btn-edit' onclick='editQuestion("+(i)+")'>Duzenle</button> <button class='btn-delete' onclick='deleteQuestion("+(i)+")'>Sil</button> </div>")
+            }*/
+            function getQuestion(index){
+                selectedQuestion = storedQuestions[index];
+                document.getElementById("content").innerHTML='';
+
+                var newContent = `<div class='questions-list'>
+                                    <div class="title"><h3>`+(index+1)+`. Soru <br>`+(selectedQuestion.title)+`
+                                        </h3></div>
+                                        <div class="ans">
+                                            <p>A)`+(selectedQuestion.answers[0].text)+`</p>
+                                            <p>B)`+(selectedQuestion.answers[1].text)+`</p>
+                                            <p>C)`+(selectedQuestion.answers[2].text)+`</p>
+                                            <p>D)`+(selectedQuestion.answers[3].text)+`</p>
+                                        </div>
+                                        <a href="questList.html"><button class="form-btn">Geri</button><a>
+                                 </div>`;
+                document.getElementById("content").innerHTML=newContent;
+
+            }
+            function deleteQuestion(index){
+                storedQuestions.splice(index,1);
+                localStorage.setItem('questions',JSON.stringify(storedQuestions));
+                location.reload();
+            }
+            function editQuestion(index){
+                selectedQuestion = storedQuestions[index];
+                document.getElementById("content").innerHTML='';
+                var newContent = `<div class="main" style="background-color: #228B22;">
+                        <form id="questForm">
+                            <div class="form-input">
+                                <label>Soru Başlığını Girin: </label>
+                                <input type="text" name="quest-title" id="quest-title" value="${selectedQuestion.title}" required>
+                            </div>
+                            <div class="form-input">
+                                <label>A Şıkkını Girin: </label>
+                                <input type="text" id="option-one" value="${selectedQuestion.answers[0].text}" required>
+                            </div>
+                            <div class="form-input">
+                                <label>B Şıkkını Girin: </label>
+                                <input type="text" id="option-two" value="${selectedQuestion.answers[1].text}" required>
+                            </div>
+                            <div class="form-input">
+                                <label>C Şıkkını Girin: </label>
+                                <input type="text" id="option-three" value="${selectedQuestion.answers[2].text}" required>
+                            </div>
+                            <div class="form-input">
+                                <label>D Şıkkını Girin: </label>
+                                <input type="text" id="option-four" value="${selectedQuestion.answers[3].text}" required>
+                            </div>
+                            <div>
+                                <label>Soru Zorluğunu Seçin :</label>
+                                <label style="cursor: pointer;"><input type="radio" name="zorluk" value="Kolay" ${selectedQuestion.difficulty === 'Kolay' ? 'checked' : ''} required>Kolay</label>
+                                <label style="cursor: pointer;"><input type="radio" name="zorluk" value="Orta" ${selectedQuestion.difficulty === 'Orta' ? 'checked' : ''} required>Orta</label>
+                                <label style="cursor: pointer;"><input type="radio" name="zorluk" value="Zor" ${selectedQuestion.difficulty === 'Zor' ? 'checked' : ''} required>Zor</label>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <label>Doğru Şıkkı Seçin :</label>
+                                <label style="cursor: pointer;"><input type="radio" name="Secenek" value="A" ${selectedQuestion.answers[0].correct ? 'checked' : ''} required>A</label>
+                                <label style="cursor: pointer;"><input type="radio" name="Secenek" value="B" ${selectedQuestion.answers[1].correct ? 'checked' : ''} required>B</label>
+                                <label style="cursor: pointer;"><input type="radio" name="Secenek" value="C" ${selectedQuestion.answers[2].correct ? 'checked' : ''} required>C</label>
+                                <label style="cursor: pointer;"><input type="radio" name="Secenek" value="D" ${selectedQuestion.answers[3].correct ? 'checked' : ''} required>D</label>
+                            </div>
+                            <button type="button" class="form-btn" onclick="updateQuestion(${index})">Soruyu Güncelle</button>
+                        </form>
+                        <a href="questList.html"><button class="form-btn">Geri</button>
+                    </div>`;
+                    document.getElementById("content").innerHTML = newContent;
+                
+            }
+            function updateQuestion(index){
+                const title = document.getElementById('quest-title').value;
+                const answerA = document.getElementById('option-one').value;
+                const answerB = document.getElementById('option-two').value;
+                const answerC = document.getElementById('option-three').value;
+                const answerD = document.getElementById('option-four').value;
+                
+                const difficulty = document.querySelector('input[name="zorluk"]:checked')?.value;
+                const correctAnswer = document.querySelector('input[name="Secenek"]:checked')?.value;
+
+                storedQuestions[index] ={
+                    title:title,
+                    answers:[
+                        {text:answerA, correct:correctAnswer == 'A'},
+                        {text:answerB, correct:correctAnswer == 'B'},
+                        {text:answerC, correct:correctAnswer == 'C'},
+                        {text:answerD, correct:correctAnswer =='D'},
+                    ],
+                    difficulty:difficulty
+                };
+
+                localStorage.setItem('questions',JSON.stringify(storedQuestions));
+
+                location.reload();
+            }
+
+
+            function renderQuestions(questions) {
+                const questionsListDiv = document.getElementById('questions-list');
+                questionsListDiv.innerHTML = '';
+
+                questions.forEach((question, index) => {
+                    questionsListDiv.innerHTML += `
+                        <div class='questions'>
+                            <div class='quest' onclick='getQuestion(${index})'>
+                                <span>${index + 1}. </span>${question.title}
+                            </div>
+                            <button class='btn-edit' onclick='editQuestion(${index})'>Duzenle</button>
+                            <button class='btn-delete' onclick='deleteQuestion(${index})'>Sil</button>
+                        </div>`;
+                });
+            }
+
+            renderQuestions(storedQuestions);
+
+            document.getElementById('search').addEventListener('input', function(event) {
+            const searchTerm = event.target.value.toLowerCase();
+            const filteredQuestions = storedQuestions.filter(question =>
+                question.title.toLowerCase().includes(searchTerm)
+            );
+            renderQuestions(filteredQuestions);
+        });
+            
+            
+        </script>
+        <div class="add-quest">
+            <a href="addQuest.html" style="width: 30%;"><button class="btn-add-quest">Soru Ekle</button></a>
+        </div>
+        <div class="add-quest">
+            <a href="index.html" style="width: 30%;"><button class="btn-add-quest">Geri</button></a>
+        </div>
+
+    </div>
+    
+</body>
+</html>

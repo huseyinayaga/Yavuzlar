@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <form id="questForm">
+            <div class="form-input">
+                <label>Soru Başlığını Girin: </label>
+                <input type="text" name="quest-title" id="quest-title" required maxlength="150">
+            </div>
+            <div class="form-input">
+                <label>A Şıkkını Girin: </label>
+                <input type="text" id="option-one" required>
+            </div>
+            <div class="form-input">
+                <label>B Şıkkını Girin: </label>
+                <input type="text" id="option-two" required>
+            </div>
+            <div class="form-input">
+                <label>C Şıkkını Girin: </label>
+                <input type="text" id="option-three" required>
+            </div>
+            <div class="form-input">
+                <label>D Şıkkını Girin: </label>
+                <input type="text" id="option-four" required>
+            </div>
+            <div>
+                <label>Soru Zorluğunu Seçin :</label>
+                <label style="cursor: pointer;"><input type="radio" name="zorluk" value="Kolay" required>Kolay</label>
+                <label style="cursor: pointer;"><input type="radio" name="zorluk" value="Orta" required>Orta</label>
+                <label style="cursor: pointer;"><input type="radio" name="zorluk" value="Zor" required>Zor</label>
+            </div>
+            <div style="margin-top: 20px;">
+                <label>Dogru Şıkkı Seçin :</label>
+                <label style="cursor: pointer;"><input type="radio" name="Secenek" value="A" required>A</label>
+                <label style="cursor: pointer;"><input type="radio" name="Secenek" value="B" required>B</label>
+                <label style="cursor: pointer;"><input type="radio" name="Secenek" value="C" required>C</label>
+                <label style="cursor: pointer;"><input type="radio" name="Secenek" value="D" required>D</label>
+            </div>
+            <button type="submit" class="form-btn">Soruyu Ekle</button>
+        </form>
+        <a href="questList.html"><button class="form-btn">Geri</button>
+        <p id="p" style="color: aquamarine; font-size: 20px;"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

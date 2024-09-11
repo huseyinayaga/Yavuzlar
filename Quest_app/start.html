@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yavuzlar Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: #001e4d;">
+    <div class="container">
+        <h1>Yavuzlar Soru Uygulaması</h1>
+        <div class="quiz">
+            <h2 id="question">Soru Buraya Gelecek</h2>
+            <div id="answers-buttons"></div>
+        </div>
+        <button id="next-btn" style="display:none;">Sonraki</button>
+        <h3 id="difficulty">Zorluk Seviyesi</h3>
+        <div id="finis-text"></div>
+        <div id="score"></div>
+    </div>
+    <script>
+        var questionsList = JSON.parse(localStorage.getItem('questions')) || [];
+        const questTitle = document.getElementById("question");
+        const nextButton = document.getElementById("next-btn");
+        const answersButtons = document.getElementById("answers-buttons");
+        const finisText = document.getElementById("finis-text");
+        const difficulty = document.getElementById("difficulty");
+        const scoreDisplay = document.getElementById("score");
+
+        let questionNo=1;
+        let score = 0;
+        let currentQuestionIndex = 0;
+        let usedIndex = [];
+
+        function getRandomIndex(){
+            if(usedIndex.length === questionsList.length){
+                const textParagraph = document.createElement("p");
+                textParagraph.innerHTML = "Sorulari Bitirdiniz ";
+                textParagraph.style.color="blue";
+                textParagraph.style.fontSize="20px";
+                finisText.appendChild(textParagraph);
+                nextButton.style.display = 'none';
+                showFinalScore();
+                return null;
+            }
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * questionsList.length);
+            } while(usedIndex.includes(randomIndex));
+
+            usedIndex.push(randomIndex);
+            return randomIndex;
+        }
+
+        function startQuest() {
+            currentQuestionIndex = getRandomIndex();
+            if (currentQuestionIndex !== null) {
+                nextButton.innerHTML = 'Sonraki';
+                showQuestion();
+            }
+        }
+
+        function showQuestion() {
+            resetState();
+            let currentQuestion = questionsList[currentQuestionIndex];
+            questTitle.innerHTML =questionNo+". "+currentQuestion.title;
+            questionNo++;
+            currentQuestion.answers.forEach(answer => {
+                const button = document.createElement("button");
+                button.innerHTML = answer.text;
+                button.classList.add('btn-ans');
+                answersButtons.appendChild(button);
+                if (answer.correct) {
+                    button.dataset.correct = answer.correct;
+                }
+                button.addEventListener("click", selectAnswer);
+            });
+
+            difficulty.innerHTML = currentQuestion.difficulty;
+        }
+
+        function resetState() {
+            nextButton.style.display = 'none';
+            while (answersButtons.firstChild) {
+                answersButtons.removeChild(answersButtons.firstChild);
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectedButton = e.target;
+            const isCorrect = selectedButton.dataset.correct === "true";
+            if (isCorrect) {
+                selectedButton.classList.add("correct");
+                if(difficulty.innerHTML.toLowerCase() === "kolay"){
+                    score++;
+                }
+                else if(difficulty.innerHTML.toLowerCase() === "orta"){
+                    score+=2;
+                }
+                else if(difficulty.innerHTML.toLowerCase()=== "zor"){
+                    score+=3;
+                }
+            } else {
+                selectedButton.classList.add("incorrect");
+            }
+
+            Array.from(answersButtons.children).forEach(button => {
+                if (button.dataset.correct === "true") {
+                    button.classList.add("correct");
+                }
+                button.disabled = true;
+            });
+            nextButton.style.display = "block";
+            nextButton.addEventListener("click", startQuest);
+        }
+        function showFinalScore() {
+                
+            questTitle.innerHTML = "Quiz Tamamlandı!";
+            answersButtons.style.display = 'none';
+            nextButton.style.display = 'none'; 
+            difficulty.style.display = 'none';
+                
+            const scoreParagraph = document.createElement("p");
+            scoreParagraph.innerHTML = "Toplam Puanınız: " + score;
+            scoreParagraph.style.color = "blue";
+            scoreParagraph.style.fontSize = "20px";
+            scoreDisplay.appendChild(scoreParagraph);
+        }
+        startQuest();
+    </script>
+</body>
+</html>

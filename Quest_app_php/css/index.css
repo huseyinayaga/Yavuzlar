@@ -1,0 +1,83 @@
+*{
+    margin: 0;
+}
+body{
+    background-color: #121212;
+}
+.top{
+    display: flex;
+    align-items: center;
+    
+}
+.logo{
+    display: flex;
+    height: 30px;
+    width: 40px;
+    margin-left: 1%;
+}
+.header{
+    margin-right: 50%;
+    color: #07bc0c;
+}
+
+.login-div{
+    justify-content: center;
+    display: flex;
+    background-color:#121212;
+    border-radius: 6px;
+    width: 10%;
+    margin-right: 2%;
+    height: 100%;
+    align-items: center;
+}
+.register-div{
+    border-radius: 7px;
+    width: 14%;
+    background-color: #121212;
+    height: 100%;
+    text-align: center;
+}
+a{
+    font-weight: 400;
+    font-family:'Times New Roman', Times, serif;
+    font-size: large;
+    color: #07bc0c;
+    text-decoration: none;
+}
+.bottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    
+}
+.welcome-text{
+    display: flex;
+    color: white;
+    margin-right: 5%;
+}
+.big-logo{
+    display: flex;
+    border-radius: 20px;
+    background: radial-gradient(circle, rgba(7, 188, 12, 0.9) 0%, rgba(7, 188, 12, 0) 100%);
+    height: 300px;
+    width: 400px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #07bc0c;
+}
+.user-register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
