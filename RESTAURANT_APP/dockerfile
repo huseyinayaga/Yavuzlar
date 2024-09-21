@@ -1,0 +1,5 @@
+# PHP ve Apache için bir temel imaj kullanın
+FROM php:apache
+
+# PDO ve MySQL uzantılarını yükleyin
+RUN docker-php-ext-install pdo pdo_mysql
