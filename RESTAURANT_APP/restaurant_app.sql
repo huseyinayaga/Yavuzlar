@@ -159,10 +159,7 @@ INSERT INTO `food` (`id`, `restaurantID`, `name`, `description`, `image_path`, `
 (8, 4, 'Izgara Karadeniz Somon', '1 kg Izagra Somon Tava Balıkçı Mehmetten Ağzınıza Layık', 'food_photo/30066579.jpg', 380.00, 0.00, '2024-09-21 16:33:32', NULL),
 (9, 3, 'Döner', 'Yarım Ekmek Arası Tavuk Yusuf Has Döner', 'food_photo/9576964.jpg', 67.00, 0.00, '2024-09-21 16:36:09', NULL),
 (10, 5, 'Urfa Kebap', 'Mevsim salata, ezme, haydari, pirinç pilavı, közlenmiş domates, közlenmiş biber, soğan, lavaş ile', 'food_photo/8528756.jpg', 280.00, 30.00, '2024-09-21 21:19:23', NULL),
-(12, 1, 'fasdfasd', 'asdfasdfsd', 'food_photo/deneme.php', 12.00, 0.00, '2024-09-21 23:31:45', '2024-09-21 23:34:17'),
-(13, 1, 'asdfasd', 'adsfsadfs', 'food_photo/shell.php', 20.00, 0.00, '2024-09-21 23:38:38', '2024-09-21 23:40:20'),
-(14, 1, 'adjkkfjs', 'klajsdlfkjasdl', 'food_photo/shell.php', 200.00, 0.00, '2024-09-23 19:20:38', '2024-09-23 22:26:39'),
-(15, 2, 'asdfs', 'asdfsdfsdf', 'food_photo/shell2.php', 200.00, 0.00, '2024-09-23 22:27:14', NULL);
+
 
 -- --------------------------------------------------------
 
