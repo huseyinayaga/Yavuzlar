@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: db:3306
--- Üretim Zamanı: 24 Eyl 2024, 09:19:26
+-- Üretim Zamanı: 25 Eyl 2024, 21:14:02
 -- Sunucu sürümü: 9.0.1
 -- PHP Sürümü: 8.2.8
 
@@ -158,8 +158,7 @@ INSERT INTO `food` (`id`, `restaurantID`, `name`, `description`, `image_path`, `
 (7, 4, 'Sardalya Tava', '1 kg Sardalya Tava Ağzınıza Layık', 'food_photo/30066440.jpg', 280.00, 0.00, '2024-09-21 15:45:10', NULL),
 (8, 4, 'Izgara Karadeniz Somon', '1 kg Izagra Somon Tava Balıkçı Mehmetten Ağzınıza Layık', 'food_photo/30066579.jpg', 380.00, 0.00, '2024-09-21 16:33:32', NULL),
 (9, 3, 'Döner', 'Yarım Ekmek Arası Tavuk Yusuf Has Döner', 'food_photo/9576964.jpg', 67.00, 0.00, '2024-09-21 16:36:09', NULL),
-(10, 5, 'Urfa Kebap', 'Mevsim salata, ezme, haydari, pirinç pilavı, közlenmiş domates, közlenmiş biber, soğan, lavaş ile', 'food_photo/8528756.jpg', 280.00, 30.00, '2024-09-21 21:19:23', NULL),
-
+(10, 5, 'Urfa Kebap', 'Mevsim salata, ezme, haydari, pirinç pilavı, közlenmiş domates, közlenmiş biber, soğan, lavaş ile', 'food_photo/8528756.jpg', 280.00, 30.00, '2024-09-21 21:19:23', NULL);
 
 -- --------------------------------------------------------
 
@@ -473,7 +472,7 @@ ALTER TABLE `cupon`
 -- Tablo için AUTO_INCREMENT değeri `food`
 --
 ALTER TABLE `food`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `orders`
