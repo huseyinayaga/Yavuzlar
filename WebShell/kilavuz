@@ -1,0 +1,5 @@
+Komut Çalıştırma: Kullanıcıdan alınan komut, shell_exec ile çalıştırılıp kullanıcı girişi işlenir  ve sonuç HTML olarak gösterilir.
+Dosya Yükleme: Kullanıcı dosya yükleyebilir yüklenen dosyalar uploads klasörüne kaydediliyor.
+Dosya Silme: Kullanıcıdan alınan dosya yolu ile belirtilen dosya silinir.
+Dosya Görüntüleme: Kullanıcı belirli bir dosyanın içeriğini ve izinlerini görüntüleyebilir.
+Dosya Arama: Kullanıcı belirtilen dosya adını belirterek arayabilir.
