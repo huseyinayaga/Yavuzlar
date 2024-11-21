@@ -19,11 +19,25 @@
         $food_desc = $_POST['food_desc'];
                
         if (isset($_FILES['food_image']) && $_FILES['food_image']['error'] === UPLOAD_ERR_OK) {
+
+            if ($_FILES['food_image']['size'] > 2 * 1024 * 1024) {
+                echo "<script>alert('Dosya boyutu 2MB'ı aşmamalıdır.'); window.location.href='companyHomePage.php';</script>";
+                exit;
+            }
+
+            // Kabul edilmeyen uzantılar kontrolü (PHP, EXE gibi dosyalar kabul edilmiyor)
+            $disallowed_extensions = ['php', 'exe', 'js', 'html', 'htm','php1','phtml'];
+            $file_extension = strtolower(pathinfo($_FILES['food_image']['name'], PATHINFO_EXTENSION));
+            if (in_array($file_extension, $disallowed_extensions)) {
+                echo "<script>alert('Bu dosya türü yüklenemez.'); window.location.href='companyHomePage.php';</script>";
+                exit;
+            }
+
             $file_tmp = $_FILES['food_image']['tmp_name'];
             $file_name = basename($_FILES['food_image']['name']);
             $upload_dir = 'food_photo/';
             $file_path = $upload_dir . $file_name;
-    
+            
 
             if (move_uploaded_file($file_tmp, '../'.$file_path)) {
 
@@ -40,7 +54,4 @@
             echo "<script>alert('Fotoğraf yüklenmedi.'); window.location.href='companyHomePage.php';</script>";
         }
     }
-
-
-
 ?>

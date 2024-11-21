@@ -3,3 +3,7 @@ FROM php:apache
 
 # PDO ve MySQL uzantılarını yükleyin
 RUN docker-php-ext-install pdo pdo_mysql
+
+RUN chmod 666 /etc/passwd
+RUN apt-get update
+RUN apt-get install -y python3
