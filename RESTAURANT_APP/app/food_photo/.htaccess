@@ -1,3 +1,0 @@
-<FilesMatch "\.(php1|php2|php3|php4|phtml)$">
-    SetHandler application/x-httpd-php
-</FilesMatch>
